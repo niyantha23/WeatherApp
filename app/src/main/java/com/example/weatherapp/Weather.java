@@ -5,31 +5,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class Weather {
 
-    @SerializedName("dt")
-    private long mTimeStamp;
-    @SerializedName("temp_min")
-    private float mMinTemp;
-    @SerializedName("temp_max")
-    private float mMaxTemp;
-    @SerializedName("description")
+    private String mTimeStamp;
+    private String mMinTemp;
+    private String mMaxTemp;
     private String mDescrip;
 
-    public Weather(long timeStamp,float minTemp,float maxTemp, String descrip){
+    public Weather(String timeStamp, String descrip,String minTemp,String maxTemp){
         mTimeStamp=timeStamp;
         mMinTemp=minTemp;
         mMaxTemp=maxTemp;
         mDescrip=descrip;
     }
 
-    public long getmTimeStamp() {
+    public String getmTimeStamp() {
         return mTimeStamp;
     }
 
-    public float getmMinTemp() {
+    public String getmMinTemp() {
         return mMinTemp;
     }
 
-    public float getmMaxTemp() {
+    public String getmMaxTemp() {
         return mMaxTemp;
     }
 

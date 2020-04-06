@@ -1,11 +1,16 @@
 package com.example.weatherapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,13 +28,29 @@ public class MainActivity extends AppCompatActivity {
     String min_temp = "";
     String max_temp = "";
     private TextView test;
+    private TabLayout tabLayout;
+    private AppBarLayout appBarLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tabLayout=findViewById(R.id.tablayout);
+        appBarLayout=findViewById(R.id.app_bar_layout);
+        viewPager=findViewById(R.id.view_pager);
+
         DownloadTask task = new DownloadTask();
         task.execute("https://api.openweathermap.org/data/2.5/forecast?q=Chennai&appid=fc7a4df678d008f3db0aa92ea746fa75");
+        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter.AddFragments(new Day1Fragment(),"Day1");
+        viewPagerAdapter.AddFragments(new Day2Fragment(),"Day2");
+        viewPagerAdapter.AddFragments(new Day3Fragment(),"Day3");
+        viewPagerAdapter.AddFragments(new Day4Fragment(),"Day4");
+        viewPagerAdapter.AddFragments(new Day5Fragment(),"Day5");
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
 
 
     }
@@ -38,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... urls) {
+
             String result = "";
             URL url;
             HttpURLConnection urlConnection = null;

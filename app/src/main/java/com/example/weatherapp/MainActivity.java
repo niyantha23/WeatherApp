@@ -2,6 +2,7 @@ package com.example.weatherapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.AsyncTask;
@@ -20,39 +21,62 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    public int unixTime = (int) (System.currentTimeMillis() / 1000L);
+    public String Day1Date="";
+    public String Day2Date;
+    public String Day3Date;
+    public String Day4Date;
+    public String Day5Date;
     String description = "";
     String TimeStamp = "";
     String min_temp = "";
     String max_temp = "";
-    private TextView test;
+    String listtime="";
     private TabLayout tabLayout;
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
+    public MyViewModel viewModel;
+    private String Day1MinTemp="";
+    private String Day1MaxTemp;
+    private String Day1Descrip;
+    private String Day2MinTemp;
+    private String Day2MaxTemp;
+    private String Day2Descrip;
+    private String Day3MinTemp;
+    private String Day3MaxTemp;
+    private String Day3Descrip;
+    private String Day4MinTemp;
+    private String Day4MaxTemp;
+    private String Day4Descrip;
+    private String Day5MinTemp;
+    private String Day5MaxTemp;
+    private String Day5Descrip;
+    TextView date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tabLayout=findViewById(R.id.tablayout);
-        appBarLayout=findViewById(R.id.app_bar_layout);
-        viewPager=findViewById(R.id.view_pager);
+        initialize();
 
         DownloadTask task = new DownloadTask();
         task.execute("https://api.openweathermap.org/data/2.5/forecast?q=Chennai&appid=fc7a4df678d008f3db0aa92ea746fa75");
-        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPagerAdapter.AddFragments(new Day1Fragment(),"Day1");
-        viewPagerAdapter.AddFragments(new Day2Fragment(),"Day2");
-        viewPagerAdapter.AddFragments(new Day3Fragment(),"Day3");
-        viewPagerAdapter.AddFragments(new Day4Fragment(),"Day4");
-        viewPagerAdapter.AddFragments(new Day5Fragment(),"Day5");
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter.AddFragments(new Day1Fragment(), "Day1");
+        viewPagerAdapter.AddFragments(new Day2Fragment(), "Day2");
+        viewPagerAdapter.AddFragments(new Day3Fragment(), "Day3");
+        viewPagerAdapter.AddFragments(new Day4Fragment(), "Day4");
+        viewPagerAdapter.AddFragments(new Day5Fragment(), "Day5");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
+        date=findViewById(R.id.day1_date);
 
 
-
+        Log.i("time", unixTime + "");
     }
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
@@ -107,13 +131,123 @@ public class MainActivity extends AppCompatActivity {
 //                  Log.i("date",TimeStamp);
 //                  Log.i("dec",description);
 //                  Log.i("mt",min_temp);
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            for(int i=0;i<list.size();i++)
-            Log.i("date",list.get(i).getmTimeStamp());
+            findClosest(list);
+            getDataToDisplay(list);
+            addDataToViewModel();
+            Log.i("D1", Day1Descrip);
+           // Log.i("D2", Day2Descrip);
+            Log.i("D3", Day3Date);
+            Log.i("D4", Day4Date);
+            Log.i("D5", Day5Date);
+        //   date.setText(Day1Date+Day1Descrip+Day1MinTemp);
+
 
         }
     }
+
+    void initialize() {
+        tabLayout = findViewById(R.id.tablayout);
+        appBarLayout = findViewById(R.id.app_bar_layout);
+        viewPager = findViewById(R.id.view_pager);
+    }
+
+    void findClosest(List<Weather> list) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            String timestamp = list.get(i).getmTimeStamp();
+            int date = Integer.parseInt(timestamp);
+            numbers.add(date);
+
+        }
+        int myNumber = unixTime;
+        int distance = Math.abs(numbers.get(0) - myNumber);
+        int idx = 0;
+        for (int c = 1; c < numbers.size(); c++) {
+            int cdistance = Math.abs(numbers.get(c) - myNumber);
+            if (cdistance < distance) {
+                idx = c;
+                distance = cdistance;
+            }
+        }
+        int theNumber = numbers.get(idx);
+
+        Day1Date = String.valueOf(theNumber);
+        Day2Date = String.valueOf(theNumber + 86400);
+        Day3Date = String.valueOf(theNumber + 172800);
+        Day4Date = String.valueOf(theNumber + 259200);
+        Day5Date = String.valueOf(theNumber + 345600);
+
+
+//        Log.i("NOW", unixTime + "");
+//        Log.i("CLOSEST", theNumber + "");
+//        Log.i("D1", Day1Date);
+//        Log.i("D2", Day2Date);
+//        Log.i("D3", Day3Date);
+//        Log.i("D4", Day4Date);
+//        Log.i("D5", Day5Date);
+
+
+
+
+    }
+
+    //to get final data to be displayed
+    void getDataToDisplay(List<Weather> list) {
+        for (int i = 0; i < list.size(); i++) {
+             listtime = list.get(i).getmTimeStamp();
+            if (list.get(i).getmTimeStamp() == Day1Date) {
+                Day1MinTemp = list.get(i).getmMinTemp();
+                Day1MaxTemp = list.get(i).getmMaxTemp();
+                Day1Descrip = list.get(i).getmDescrip();
+            } else if (listtime == Day2Date) {
+                Day2MinTemp = list.get(i).getmMinTemp();
+                Day2MaxTemp = list.get(i).getmMaxTemp();
+                Day2Descrip = list.get(i).getmDescrip();
+            } else if (listtime == Day3Date) {
+                Day3MinTemp = list.get(i).getmMinTemp();
+                Day3MaxTemp = list.get(i).getmMaxTemp();
+                Day3Descrip = list.get(i).getmDescrip();
+            } else if (listtime == Day4Date) {
+                Day4MinTemp = list.get(i).getmMinTemp();
+                Day4MaxTemp = list.get(i).getmMaxTemp();
+                Day4Descrip = list.get(i).getmDescrip();
+            } else if (listtime == Day5Date) {
+                Day5MinTemp = list.get(i).getmMinTemp();
+                Day5MaxTemp = list.get(i).getmMaxTemp();
+                Day5Descrip = list.get(i).getmDescrip();
+            }
+        }
+        Log.i("ddcd",Day1Descrip);
+    }
+    void addDataToViewModel()
+    {
+        viewModel.setDay1Date(Day1Date+ "");
+        viewModel.setDay1Descrip(Day1Descrip+ "");
+        viewModel.setDay1MaxTemp(Day1MaxTemp+"");
+        viewModel.setDay1MinTemp(Day1MinTemp+"");
+        viewModel.setDay2Date(Day2Date+ "");
+        viewModel.setDay2Descrip(Day2Descrip+ "");
+        viewModel.setDay2MaxTemp(Day2MaxTemp+"");
+        viewModel.setDay2MinTemp(Day2MinTemp+"");
+        viewModel.setDay3Date(Day3Date+ "");
+        viewModel.setDay3Descrip(Day3Descrip+ "");
+        viewModel.setDay3MaxTemp(Day3MaxTemp+"");
+        viewModel.setDay3MinTemp(Day3MinTemp+"");
+        viewModel.setDay4Date(Day4Date+ "");
+        viewModel.setDay4Descrip(Day4Descrip+ "");
+        viewModel.setDay4MaxTemp(Day4MaxTemp+"");
+        viewModel.setDay4MinTemp(Day4MinTemp+"");
+        viewModel.setDay5Date(Day5Date+ "");
+        viewModel.setDay5Descrip(Day5Descrip+ "");
+        viewModel.setDay5MaxTemp(Day5MaxTemp+"");
+        viewModel.setDay5MinTemp(Day5MinTemp+"");
+
+
+    }
+
 }

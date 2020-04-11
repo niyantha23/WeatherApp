@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class Weather {
 
-    private String mTimeStamp;
+    private int mTimeStamp;
     private String mMinTemp;
     private String mMaxTemp;
     private String mDescrip;
 
-    public Weather(String timeStamp, String descrip,String minTemp,String maxTemp){
+    public Weather(int timeStamp, String descrip,String minTemp,String maxTemp){
         mTimeStamp=timeStamp;
         mMinTemp=minTemp;
         mMaxTemp=maxTemp;
         mDescrip=descrip;
     }
 
-    public String getmTimeStamp() {
+    public int getmTimeStamp() {
         return mTimeStamp;
     }
 

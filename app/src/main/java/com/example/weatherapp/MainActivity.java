@@ -1,22 +1,16 @@
 package com.example.weatherapp;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -32,64 +26,60 @@ public class MainActivity extends AppCompatActivity {
     public int Day4Date;
     public int Day5Date;
     int TimeStamp;
+    float min_temp;
+    float max_temp;
+    float original_temp;
+    float feel_temp;
+    float pressure;
+    float humidity;
+    float windSpeed;
     String description = "";
     String TimeStampS = "";
-    String min_temp = "";
-    String max_temp = "";
+    String min_tempS = "";
+    String max_tempS = "";
+    String original_tempS="";
+    String feel_tempS="";
+    String pressureS="";
+    String humidityS="";
+    String windSpeedS="";
     int listtime;
     private TabLayout tabLayout;
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
     public MyViewModel viewModel;
-    private String Day1MinTemp="";
-    private String Day1MaxTemp;
+    private float Day1MinTemp;
+    private float Day1MaxTemp;
     private String Day1Descrip;
-    private String Day2MinTemp;
-    private String Day2MaxTemp;
+    private float Day2MinTemp;
+    private float Day2MaxTemp;
     private String Day2Descrip;
-    private String Day3MinTemp;
-    private String Day3MaxTemp;
+    private float Day3MinTemp;
+    private float Day3MaxTemp;
     private String Day3Descrip;
-    private String Day4MinTemp;
-    private String Day4MaxTemp;
+    private float Day4MinTemp;
+    private float Day4MaxTemp;
     private String Day4Descrip;
-    private String Day5MinTemp;
-    private String Day5MaxTemp;
+    private float Day5MinTemp;
+    private float Day5MaxTemp;
     private String Day5Descrip;
-    TextView date;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
-
         DownloadTask task = new DownloadTask();
         task.execute("https://api.openweathermap.org/data/2.5/forecast?q=Chennai&appid=fc7a4df678d008f3db0aa92ea746fa75");
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPagerAdapter.AddFragments(new Day1Fragment(),"Day1");
-        viewPagerAdapter.AddFragments(new Day2Fragment(), "Day2");
-        viewPagerAdapter.AddFragments(new Day3Fragment(), "Day3");
-        viewPagerAdapter.AddFragments(new Day4Fragment(), "Day4");
-        viewPagerAdapter.AddFragments(new Day5Fragment(), "Day5");
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        addFragments();
         viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
-        //date=findViewById(R.id.day1_date);
-
-
-        Log.i("time", unixTime + "");
-    }
-
-    public class DownloadTask extends AsyncTask<String, Void, String> {
-
+            }
+            public class DownloadTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-
             String result = "";
             URL url;
             HttpURLConnection urlConnection = null;
-
             try {
                 url = new URL(urls[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -114,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             ArrayList<Weather> list = new ArrayList<>();
+
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 String listInfo = jsonObject.getString("list");
@@ -122,19 +113,40 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject listObject = ListArray.getJSONObject(i);
                     TimeStampS = listObject.getString("dt");
                     TimeStamp=Integer.parseInt(TimeStampS);
-
                     JSONObject mainObject = listObject.getJSONObject("main");
-                    min_temp = mainObject.getString("temp_min");
-                    max_temp = mainObject.getString("temp_max");
+                    min_tempS = mainObject.getString("temp_min");
+                    min_temp=Float.parseFloat(min_tempS);
+                    max_tempS = mainObject.getString("temp_max");
+                    max_temp=Float.parseFloat(max_tempS);
+                    original_tempS=mainObject.getString("temp");
+                    original_temp=Float.parseFloat(original_tempS);
+                    feel_tempS=mainObject.getString("feels_like");
+                    feel_temp=Float.parseFloat(feel_tempS);
+                    pressureS=mainObject.getString("pressure");
+                    pressure=Float.parseFloat(pressureS);
+                    humidityS=mainObject.getString("humidity");
+                    humidity=Float.parseFloat(humidityS);
                     JSONArray weatherArray = listObject.getJSONArray("weather");
                     JSONObject weatherObject = weatherArray.getJSONObject(0);
                     description = weatherObject.getString("description");
+                    min_temp-=273.15;
+                    max_temp-=273.15;
+                    original_temp-=273.15;
+                    feel_temp-=273.15;
+                    JSONObject windObject=listObject.getJSONObject("wind");
+                    windSpeedS=windObject.getString("speed");
+                    windSpeed=Float.parseFloat(windSpeedS);
                     Weather weathers = new Weather(TimeStamp, description, min_temp, max_temp);
                     list.add(weathers);
                     // Log.i("date",weathers.getmDescrip()+" "+weathers.getmMaxTemp()+" "+weathers.getmMinTemp()+" "+weathers.getmTimeStamp());
 //                  Log.i("date",TimeStamp);
 //                  Log.i("dec",description);
-//                  Log.i("mt",min_temp);
+                 Log.i("ot",original_temp+"");
+                    Log.i("ft",feel_temp+"");
+                    Log.i("p",pressure+"");
+                    Log.i("h",humidity+"");
+                    Log.i("ws",windSpeed+"");
+
 
                 }
             } catch (Exception e) {
@@ -143,12 +155,6 @@ public class MainActivity extends AppCompatActivity {
             findClosest(list);
             getDataToDisplay(list);
             addDataToViewModel();
-            //Log.i("D1", viewModel.getDay1Descrip());
-           // Log.i("D2", Day2Descrip);
-//            Log.i("D3", Day3Date);
-//            Log.i("D4", Day4Date);
-//            Log.i("D5", Day5Date);
-         //date.setText(Day1Date+"");
             Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" +"0");
             Day1Fragment day1Fragment= (Day1Fragment) page;
             day1Fragment.assignText();
@@ -181,24 +187,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         int theNumber = numbers.get(idx);
-
         Day1Date = (theNumber);
         Day2Date = (theNumber + 86400);
         Day3Date = (theNumber + 172800);
         Day4Date = (theNumber + 259200);
         Day5Date = (theNumber + 345600);
-
-        Log.i("NOW", unixTime + "");
-      Log.i("CLOSEST", theNumber + "");
-//        Log.i("D1", Day1Date);
-//        Log.i("D2", Day2Date);
-//        Log.i("D3", Day3Date);
-//        Log.i("D4", Day4Date);
-//        Log.i("D5", Day5Date);
-
-
-
-
     }
 
     //to get final data to be displayed
@@ -235,10 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 Day5Descrip = list.get(i).getmDescrip();
                 Log.i("closest equal","working5");
             }
-           // else {
-               // Log.i("not","not working");}
         }
-        //Log.i("ddcd",Day1Descrip);
     }
     void addDataToViewModel()
     {
@@ -265,5 +255,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    void addFragments(){ ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter.AddFragments(new Day1Fragment(),"Day1");
+        viewPagerAdapter.AddFragments(new Day2Fragment(), "Day2");
+        viewPagerAdapter.AddFragments(new Day3Fragment(), "Day3");
+        viewPagerAdapter.AddFragments(new Day4Fragment(), "Day4");
+        viewPagerAdapter.AddFragments(new Day5Fragment(), "Day5");
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);}
 
 }

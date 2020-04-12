@@ -2,6 +2,8 @@ package com.example.weatherapp;
 
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
 public class MyViewModel extends ViewModel {
     public String Day1Date;
     public String Day2Date;
@@ -24,6 +26,9 @@ public class MyViewModel extends ViewModel {
     private String Day5MinTemp;
     private String Day5MaxTemp;
     private String Day5Descrip;
+    private List<Weather> list;
+
+
 
     public String getDay1Date() {
         return Day1Date;

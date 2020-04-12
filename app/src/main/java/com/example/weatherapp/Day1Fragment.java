@@ -17,16 +17,12 @@ import androidx.lifecycle.ViewModelProviders;
 public class Day1Fragment extends Fragment {
     View view;
     TextView date;
-    String date1;
     private MyViewModel viewModel;
-
-
-
     public Day1Fragment() {
     }
      public void  assignText(){
          date=view.findViewById(R.id.day1_date);
-          date.setText(viewModel.getDay1Descrip());
+          date.setText(viewModel.getDay1MaxTemp());
 
            }
     @Nullable
@@ -47,29 +43,15 @@ public class Day1Fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          viewModel = ViewModelProviders.of((FragmentActivity) getActivity()).get(MyViewModel.class);
-
-        Log.i("whaat1",viewModel.getDay1Date()+"");
-
-
-
-
-    }
+             }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Log.i("whaat0",viewModel.getDay1Date()+"");
-
-
-    }
+            }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        String content =viewModel.getDay1Date()+viewModel.getDay1Descrip()+viewModel.getDay1MaxTemp()+viewModel.getDay2Descrip();
-//
-
-      Log.i("whaat",viewModel.getDay1Date()+"");
     }
 }

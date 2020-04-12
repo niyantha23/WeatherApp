@@ -22,21 +22,14 @@ public class Day1Fragment extends Fragment {
     }
      public void  assignText(){
          date=view.findViewById(R.id.day1_date);
-          date.setText(viewModel.getDay1MaxTemp());
+         date.setText(viewModel.getList().get(0).getmWindSpeed()+"");
 
            }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.day1_fragment,container,false);
-
-        Log.i("whaat2",viewModel.getDay1Date()+"");
-
-
         return view;
-
-
-
     }
 
     @Override

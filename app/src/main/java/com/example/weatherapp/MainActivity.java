@@ -42,27 +42,13 @@ public class MainActivity extends AppCompatActivity {
     String pressureS="";
     String humidityS="";
     String windSpeedS="";
+    Weather position;
     int listtime;
     private TabLayout tabLayout;
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
     public MyViewModel viewModel;
-    private float Day1MinTemp;
-    private float Day1MaxTemp;
-    private String Day1Descrip;
-    private float Day2MinTemp;
-    private float Day2MaxTemp;
-    private String Day2Descrip;
-    private float Day3MinTemp;
-    private float Day3MaxTemp;
-    private String Day3Descrip;
-    private float Day4MinTemp;
-    private float Day4MaxTemp;
-    private String Day4Descrip;
-    private float Day5MinTemp;
-    private float Day5MaxTemp;
-    private String Day5Descrip;
-
+    List<Weather> dataToDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,16 +122,16 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject windObject=listObject.getJSONObject("wind");
                     windSpeedS=windObject.getString("speed");
                     windSpeed=Float.parseFloat(windSpeedS);
-                    Weather weathers = new Weather(TimeStamp, description, min_temp, max_temp);
+                    Weather weathers = new Weather(TimeStamp, min_temp, max_temp,description,original_temp,feel_temp,pressure,humidity,windSpeed);
                     list.add(weathers);
                     // Log.i("date",weathers.getmDescrip()+" "+weathers.getmMaxTemp()+" "+weathers.getmMinTemp()+" "+weathers.getmTimeStamp());
 //                  Log.i("date",TimeStamp);
 //                  Log.i("dec",description);
-                 Log.i("ot",original_temp+"");
-                    Log.i("ft",feel_temp+"");
-                    Log.i("p",pressure+"");
-                    Log.i("h",humidity+"");
-                    Log.i("ws",windSpeed+"");
+//                 Log.i("ot",original_temp+"");
+//                    Log.i("ft",feel_temp+"");
+//                    Log.i("p",pressure+"");
+//                    Log.i("h",humidity+"");
+//                    Log.i("ws",windSpeed+"");
 
 
                 }
@@ -158,6 +144,13 @@ public class MainActivity extends AppCompatActivity {
             Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" +"0");
             Day1Fragment day1Fragment= (Day1Fragment) page;
             day1Fragment.assignText();
+            Log.i("ot",dataToDisplay.get(0).getmTimeStamp()+"");
+            Log.i("ft",dataToDisplay.get(1).getmTimeStamp()+"");
+            Log.i("p",dataToDisplay.get(2).getmTimeStamp()+"");
+            Log.i("h",dataToDisplay.get(3).getmDescrip());
+            Log.i("ws",dataToDisplay.get(4).getmDescrip());
+
+
 
         }
     }
@@ -196,63 +189,38 @@ public class MainActivity extends AppCompatActivity {
 
     //to get final data to be displayed
     void getDataToDisplay(List<Weather> list) {
-
+         dataToDisplay=new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
 
             listtime = list.get(i).getmTimeStamp();
+            position = list.get(i);
             if (Day1Date==list.get(i).getmTimeStamp()) {
-
-                Day1MinTemp = list.get(i).getmMinTemp();
-                //date.setText(list.get(i).getmDescrip());
-                Day1MaxTemp = list.get(i).getmMaxTemp();
-                Day1Descrip = list.get(i).getmDescrip();
-                Log.i("closest equal",list.get(i).getmDescrip());
+               Weather day1=new Weather(position.getmTimeStamp(),position.getmMinTemp(),position.getmMaxTemp(),position.getmDescrip(),position.getmOriginalTemp(),position.getmFeelTemp()
+               ,position.getmPressure(),position.getmHumidity(),position.getmWindSpeed());
+               dataToDisplay.add(day1);
             } else if (listtime == Day2Date) {
-                Day2MinTemp = list.get(i).getmMinTemp();
-                Day2MaxTemp = list.get(i).getmMaxTemp();
-                Day2Descrip = list.get(i).getmDescrip();
-                Log.i("closest equal",Day2Descrip);
+                Weather day2=new Weather(position.getmTimeStamp(),position.getmMinTemp(),position.getmMaxTemp(),position.getmDescrip(),position.getmOriginalTemp(),position.getmFeelTemp()
+                        ,position.getmPressure(),position.getmHumidity(),position.getmWindSpeed());
+                dataToDisplay.add(day2);
+
             } else if (listtime == Day3Date) {
-                Day3MinTemp = list.get(i).getmMinTemp();
-                Day3MaxTemp = list.get(i).getmMaxTemp();
-                Day3Descrip = list.get(i).getmDescrip();
-                Log.i("closest equal","working3");
+                Weather day3=new Weather(position.getmTimeStamp(),position.getmMinTemp(),position.getmMaxTemp(),position.getmDescrip(),position.getmOriginalTemp(),position.getmFeelTemp()
+                        ,position.getmPressure(),position.getmHumidity(),position.getmWindSpeed());
+                dataToDisplay.add(day3);
             } else if (listtime == Day4Date) {
-                Day4MinTemp = list.get(i).getmMinTemp();
-                Day4MaxTemp = list.get(i).getmMaxTemp();
-                Day4Descrip = list.get(i).getmDescrip();
-                Log.i("closest equal","working4");
+                Weather day4=new Weather(position.getmTimeStamp(),position.getmMinTemp(),position.getmMaxTemp(),position.getmDescrip(),position.getmOriginalTemp(),position.getmFeelTemp()
+                        ,position.getmPressure(),position.getmHumidity(),position.getmWindSpeed());
+                dataToDisplay.add(day4);
             } else if (listtime == Day5Date) {
-                Day5MinTemp = list.get(i).getmMinTemp();
-                Day5MaxTemp = list.get(i).getmMaxTemp();
-                Day5Descrip = list.get(i).getmDescrip();
-                Log.i("closest equal","working5");
+                Weather day5=new Weather(position.getmTimeStamp(),position.getmMinTemp(),position.getmMaxTemp(),position.getmDescrip(),position.getmOriginalTemp(),position.getmFeelTemp()
+                        ,position.getmPressure(),position.getmHumidity(),position.getmWindSpeed());
+                dataToDisplay.add(day5);
             }
         }
     }
     void addDataToViewModel()
     {
-        viewModel.setDay1Date(Day1Date+ "");
-        viewModel.setDay1Descrip(Day1Descrip+ "");
-        viewModel.setDay1MaxTemp(Day1MaxTemp+"");
-        viewModel.setDay1MinTemp(Day1MinTemp+"");
-        viewModel.setDay2Date(Day2Date+ "");
-        viewModel.setDay2Descrip(Day2Descrip+ "");
-        viewModel.setDay2MaxTemp(Day2MaxTemp+"");
-        viewModel.setDay2MinTemp(Day2MinTemp+"");
-        viewModel.setDay3Date(Day3Date+ "");
-        viewModel.setDay3Descrip(Day3Descrip+ "");
-        viewModel.setDay3MaxTemp(Day3MaxTemp+"");
-        viewModel.setDay3MinTemp(Day3MinTemp+"");
-        viewModel.setDay4Date(Day4Date+ "");
-        viewModel.setDay4Descrip(Day4Descrip+ "");
-        viewModel.setDay4MaxTemp(Day4MaxTemp+"");
-        viewModel.setDay4MinTemp(Day4MinTemp+"");
-        viewModel.setDay5Date(Day5Date+ "");
-        viewModel.setDay5Descrip(Day5Descrip+ "");
-        viewModel.setDay5MaxTemp(Day5MaxTemp+"");
-        viewModel.setDay5MinTemp(Day5MinTemp+"");
-
+        viewModel.setList(dataToDisplay);
 
     }
     void addFragments(){ ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);

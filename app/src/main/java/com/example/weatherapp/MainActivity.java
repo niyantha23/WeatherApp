@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     void addFragments(){ ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPagerAdapter.AddFragments(new Day1Fragment(),"Day1");
+        viewPagerAdapter.AddFragments(new Day1Fragment(),"TODAY");
         viewPagerAdapter.AddFragments(new Day2Fragment(), "Day2");
         viewPagerAdapter.AddFragments(new Day3Fragment(), "Day3");
         viewPagerAdapter.AddFragments(new Day4Fragment(), "Day4");

@@ -8,11 +8,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 public class Day4Fragment extends Fragment {
     View view;
+    private MyViewModel viewModel;
 
     public Day4Fragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of((FragmentActivity) getActivity()).get(MyViewModel.class);
+
     }
 
     @Nullable

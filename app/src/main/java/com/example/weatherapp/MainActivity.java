@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,8 +102,11 @@ public class MainActivity extends AppCompatActivity {
                     TimeStampS = listObject.getString("dt");
                     TimeStamp=Integer.parseInt(TimeStampS);
                     JSONObject mainObject = listObject.getJSONObject("main");
+
                     min_tempS = mainObject.getString("temp_min");
+
                     min_temp=Float.parseFloat(min_tempS);
+
                     max_tempS = mainObject.getString("temp_max");
                     max_temp=Float.parseFloat(max_tempS);
                     original_tempS=mainObject.getString("temp");
@@ -119,13 +124,15 @@ public class MainActivity extends AppCompatActivity {
                     max_temp-=273.15;
                     original_temp-=273.15;
                     feel_temp-=273.15;
+
                     JSONObject windObject=listObject.getJSONObject("wind");
                     windSpeedS=windObject.getString("speed");
                     windSpeed=Float.parseFloat(windSpeedS);
+                    windSpeed*=3.6;
                     Weather weathers = new Weather(TimeStamp, min_temp, max_temp,description,original_temp,feel_temp,pressure,humidity,windSpeed);
                     list.add(weathers);
                     // Log.i("date",weathers.getmDescrip()+" "+weathers.getmMaxTemp()+" "+weathers.getmMinTemp()+" "+weathers.getmTimeStamp());
-//                  Log.i("date",TimeStamp);
+               // Log.i("date",min);
 //                  Log.i("dec",description);
 //                 Log.i("ot",original_temp+"");
 //                    Log.i("ft",feel_temp+"");
@@ -144,12 +151,12 @@ public class MainActivity extends AppCompatActivity {
             Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" +"0");
             Day1Fragment day1Fragment= (Day1Fragment) page;
             day1Fragment.assignText();
-            Log.i("ot",dataToDisplay.get(0).getmTimeStamp()+"");
-            Log.i("ft",dataToDisplay.get(1).getmTimeStamp()+"");
-            Log.i("p",dataToDisplay.get(2).getmTimeStamp()+"");
-            Log.i("h",dataToDisplay.get(3).getmDescrip());
-            Log.i("ws",dataToDisplay.get(4).getmDescrip());
-
+//            Log.i("ot",dataToDisplay.get(0).getmTimeStamp()+"");
+//            Log.i("ft",dataToDisplay.get(1).getmTimeStamp()+"");
+//            Log.i("p",dataToDisplay.get(2).getmTimeStamp()+"");
+//            Log.i("h",dataToDisplay.get(3).getmDescrip());
+//            Log.i("ws",dataToDisplay.get(4).getmDescrip());
+//
 
 
         }

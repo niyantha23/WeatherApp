@@ -57,7 +57,7 @@
             android:layout_gravity="end"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            app:cardBackgroundColor="@color/Semitransparent"
+            app:cardBackgroundColor="@color/ClearskCardBackground"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             app:strokeWidth="0dp"

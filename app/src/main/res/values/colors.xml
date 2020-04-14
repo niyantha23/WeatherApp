@@ -3,5 +3,15 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="Semitransparent">#10000000</color>
+    <color name="ClearskCardBackground">#18000000</color>
+    <color name="ClearskyBorderBackground">#40000000</color>
+    <color name="CloudyskCardBackground">#18000000</color>
+    <color name="CloudyskyBorderBackground">#40000000</color>
+    <color name="sunnyskytextcolor">#FFA6590B</color>
+    <color name="SunnyskCardBackground">#25000000</color>
+    <color name="SunnyskyDrawableTint">#FFA6590B</color>
+    <color name="sunnyskyBorder1Background">#60000000</color>
+    <color name="Rainyskytextcolor">#FFFFFF</color>
+    <color name="RainyskyDrawableTint">#FFFFFF</color>
+
 </resources>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/baselayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4396E8"
     android:orientation="vertical">
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/original_temp"
@@ -52,11 +53,11 @@
 
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="180dp"
             android:layout_gravity="end"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
             app:cardBackgroundColor="@color/ClearskCardBackground"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
@@ -81,18 +82,19 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal"
+
                     >
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/pressure"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Pressure"
                         android:layout_weight="1"
+                        android:background="@drawable/clear_cloudy_background"
                         android:drawableRight="@drawable/prssure"
                         android:gravity="left"
                         android:padding="25dp"
-                        android:background="@drawable/background"
+                        android:text="Pressure"
 
                         ></com.google.android.material.textview.MaterialTextView>
                     <com.google.android.material.textview.MaterialTextView
@@ -104,7 +106,7 @@
                         android:gravity="left"
                         android:padding="25dp"
                         android:drawableRight="@drawable/temperature"
-                        android:background="@drawable/background"
+                        android:background="@drawable/clear_cloudy_background"
                         ></com.google.android.material.textview.MaterialTextView>
 
                 </LinearLayout>
@@ -112,7 +114,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:paddingBottom="4dp"
+
+                    >
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/humidity"
                         android:layout_width="match_parent"
@@ -122,7 +127,7 @@
                         android:padding="25dp"
                         android:drawableRight="@drawable/humidity"
                         android:gravity="left"
-                        android:background="@drawable/background"
+                        android:background="@drawable/clear_cloudy_background"
 
                         ></com.google.android.material.textview.MaterialTextView>
                     <com.google.android.material.textview.MaterialTextView
@@ -133,7 +138,7 @@
                         android:layout_weight="1"
                         android:padding="25dp"
                         android:drawableRight="@drawable/wind"
-                        android:background="@drawable/background"
+                        android:background="@drawable/clear_cloudy_background"
 
                         android:gravity="left"></com.google.android.material.textview.MaterialTextView>
                 </LinearLayout>

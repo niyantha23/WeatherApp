@@ -1,7 +1,10 @@
 package com.example.weatherapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import android.os.AsyncTask;
@@ -15,8 +18,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,15 +132,6 @@ public class MainActivity extends AppCompatActivity {
                     windSpeed*=3.6;
                     Weather weathers = new Weather(TimeStamp, min_temp, max_temp,description,original_temp,feel_temp,pressure,humidity,windSpeed);
                     list.add(weathers);
-                    // Log.i("date",weathers.getmDescrip()+" "+weathers.getmMaxTemp()+" "+weathers.getmMinTemp()+" "+weathers.getmTimeStamp());
-               // Log.i("date",min);
-//                  Log.i("dec",description);
-//                 Log.i("ot",original_temp+"");
-//                    Log.i("ft",feel_temp+"");
-//                    Log.i("p",pressure+"");
-//                    Log.i("h",humidity+"");
-//                    Log.i("ws",windSpeed+"");
-
 
                 }
             } catch (Exception e) {
@@ -148,9 +140,68 @@ public class MainActivity extends AppCompatActivity {
             findClosest(list);
             getDataToDisplay(list);
             addDataToViewModel();
-            Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" +"0");
-            Day1Fragment day1Fragment= (Day1Fragment) page;
-            day1Fragment.assignText();
+            Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + viewPager.getCurrentItem());
+            if (viewPager.getCurrentItem() == 0 && page != null) {
+                ((Day1Fragment)page).assignText();
+            }
+
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + viewPager.getCurrentItem());
+                    if (viewPager.getCurrentItem() == 0 && page != null) {
+                        ((Day1Fragment)page).assignText();
+                    }
+                    else if(viewPager.getCurrentItem() == 1 && page != null) {
+                        ((Day2Fragment)page).assignText();
+                    }
+                    else if(viewPager.getCurrentItem() == 2 && page != null) {
+                        ((Day3Fragment)page).assignText();
+                    }   else if(viewPager.getCurrentItem() == 3 && page != null) {
+                        ((Day4Fragment)page).assignText();
+                    }   else if(viewPager.getCurrentItem() == 4 && page != null) {
+                        ((Day5Fragment)page).assignText();
+                    }
+
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+//            Fragment page1 = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" +"0");
+//            Day1Fragment day1Fragment= (Day1Fragment) page1;
+//            day1Fragment.assignText();
+//            Fragment page2 = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" +"1");
+//            Day2Fragment day2Fragment= (Day2Fragment) page2;
+//            day2Fragment.assignText();
+//            Fragment page3 = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":"+"2");
+//            Day3Fragment day3Fragment= (Day3Fragment) page3;
+//            day3Fragment.assignText();
+//            Fragment page4 = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" +"3");
+//            Day4Fragment day4Fragment= (Day4Fragment) page4;
+           // day4Fragment.assignText();
+//            Fragment page5 = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" +"4");
+//            Day5Fragment day5Fragment= (Day5Fragment) page5;
+//            Fragment frag3=new Day3Fragment();
+//            Day3Fragment day3Fragment= (Day3Fragment) frag3;
+//            day3Fragment.assignText();
+
+ //           Fragment page5 = getSupportFragmentManager().findFragmentById(viewPager.getCurrentItem());
+
+
+
+
+//           ViewPagerAdapter adapter = ((ViewPagerAdapter)viewPager.getAdapter());
+//            Day3Fragment fragment = (Day3Fragment) adapter.getItem(2);
+//            fragment.assignText();
+          //  day5Fragment.assignText();
 //            Log.i("ot",dataToDisplay.get(0).getmTimeStamp()+"");
 //            Log.i("ft",dataToDisplay.get(1).getmTimeStamp()+"");
 //            Log.i("p",dataToDisplay.get(2).getmTimeStamp()+"");
@@ -230,13 +281,16 @@ public class MainActivity extends AppCompatActivity {
         viewModel.setList(dataToDisplay);
 
     }
-    void addFragments(){ ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+    void addFragments(){
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPagerAdapter.AddFragments(new Day1Fragment(),"TODAY");
         viewPagerAdapter.AddFragments(new Day2Fragment(), "Day2");
         viewPagerAdapter.AddFragments(new Day3Fragment(), "Day3");
         viewPagerAdapter.AddFragments(new Day4Fragment(), "Day4");
         viewPagerAdapter.AddFragments(new Day5Fragment(), "Day5");
         viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);}
+        tabLayout.setupWithViewPager(viewPager);
+
+    }
 
 }

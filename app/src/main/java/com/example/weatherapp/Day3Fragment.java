@@ -24,17 +24,18 @@ public class Day3Fragment extends Fragment {
     public Day3Fragment() {
     }
     public void setcolor(){
+        MainActivity mainActivity= (MainActivity) getActivity();
         RelativeLayout base=view.findViewById(R.id.baselayout);
         String des=viewModel.getList().get(2).getmDescrip();
         Log.i("des",des);
         if(des.equals("clear sky")){
-            base.setBackgroundResource(R.drawable.clearsky);
+            mainActivity.rootLayout.setBackgroundResource(R.drawable.clearsky);
         }
         else if(des.equals("few clouds")||des.equals("scattered clouds")||des.equals("broken clouds")||des.equals("moderate clouds")||des.equals("overcast clouds")){
-            base.setBackgroundResource(R.drawable.clouds);
+            mainActivity.rootLayout.setBackgroundResource(R.drawable.clouds);
         }
         else if(des.equals("light rain")||des.equals("heavy rain")||des.equals("moderate rain")){
-            base.setBackgroundResource(R.drawable.rain2);
+            mainActivity.rootLayout.setBackgroundResource(R.drawable.rain2);
             wind.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
             pressure.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
             humidity.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
@@ -47,7 +48,7 @@ public class Day3Fragment extends Fragment {
             card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
         }
         else  if(des.equals("sunny sky")){
-            base.setBackgroundResource(R.drawable.sunny3);
+            mainActivity.rootLayout.setBackgroundResource(R.drawable.sunny3);
             wind.setTextColor(ContextCompat.getColor(getContext(),R.color.sunnyskytextcolor));
             pressure.setTextColor(ContextCompat.getColor(getContext(),R.color.sunnyskytextcolor));
             humidity.setTextColor(ContextCompat.getColor(getContext(),R.color.sunnyskytextcolor));

@@ -6,12 +6,18 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.Activity;
+import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -23,10 +29,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+
     public int unixTime = (int) (System.currentTimeMillis() / 1000L);
     public int Day1Date;
     public int Day2Date;
@@ -58,22 +72,44 @@ public class MainActivity extends AppCompatActivity {
     public MyViewModel viewModel;
     List<Weather> dataToDisplay;
     public LinearLayout rootLayout;
+    public String weekday,weekday2,weekday3,weekday4,weekday5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        StatusBarUtil.setTransparent(MainActivity.this);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            Window w = getWindow();
-//            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-//        }
         initialize();
         DownloadTask task = new DownloadTask();
         task.execute("https://api.openweathermap.org/data/2.5/forecast?q=Chennai&appid=fc7a4df678d008f3db0aa92ea746fa75");
+        StatusBarUtil.setTransparent(MainActivity.this);
+
+
         addFragments();
         viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
             }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater=getMenuInflater();
+//        inflater.inflate(R.menu.menu_search,menu);
+//        MenuItem item=findViewById(R.id.search);
+//        SearchView searchView=findViewById();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
+//        return true;
+//
+//    }
+
+
             public class DownloadTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -160,7 +196,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPageSelected(int position) {
                     Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + viewPager.getCurrentItem());
+                    TabLayout.Tab tab= tabLayout.getTabAt(position);
                     if (viewPager.getCurrentItem() == 0 && page != null) {
+
                         ((Day1Fragment)page).assignText();
                     }
                     else if(viewPager.getCurrentItem() == 1 && page != null) {
@@ -183,11 +221,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     void initialize() {
         tabLayout = findViewById(R.id.tablayout);
         appBarLayout = findViewById(R.id.app_bar_layout);
         viewPager = findViewById(R.id.view_pager);
         rootLayout=findViewById(R.id.root_layout);
+        weekday2=getDay(unixTime+86400);
+        weekday3=getDay(unixTime+172800);
+        weekday4=getDay(unixTime+259200);
+        weekday5=getDay(Day5Date+345600);
     }
 
     void findClosest(List<Weather> list) {
@@ -214,13 +258,17 @@ public class MainActivity extends AppCompatActivity {
         Day3Date = (theNumber + 172800);
         Day4Date = (theNumber + 259200);
         Day5Date = (theNumber + 345600);
-    }
-
+            }
+    //to get the day from epoch time
+    String getDay(int time){
+        return Instant.ofEpochSecond( time)
+                .atZone(ZoneId.of("IST"))
+                .getDayOfWeek()
+                .getDisplayName( TextStyle.FULL , Locale.US );}
     //to get final data to be displayed
     void getDataToDisplay(List<Weather> list) {
          dataToDisplay=new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-
             listtime = list.get(i).getmTimeStamp();
             position = list.get(i);
             if (Day1Date==list.get(i).getmTimeStamp()) {
@@ -254,11 +302,11 @@ public class MainActivity extends AppCompatActivity {
     }
     void addFragments(){
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPagerAdapter.AddFragments(new Day1Fragment(),"TODAY");
-        viewPagerAdapter.AddFragments(new Day2Fragment(), "Day2");
-        viewPagerAdapter.AddFragments(new Day3Fragment(), "Day3");
-        viewPagerAdapter.AddFragments(new Day4Fragment(), "Day4");
-        viewPagerAdapter.AddFragments(new Day5Fragment(), "Day5");
+        viewPagerAdapter.AddFragments(new Day1Fragment(),"Today");
+        viewPagerAdapter.AddFragments(new Day2Fragment(), weekday2);
+        viewPagerAdapter.AddFragments(new Day3Fragment(), weekday3);
+        viewPagerAdapter.AddFragments(new Day4Fragment(), weekday4);
+        viewPagerAdapter.AddFragments(new Day5Fragment(), weekday5);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 

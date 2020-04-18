@@ -24,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@id/original_temp"
         android:layout_alignBottom="@id/original_temp"
-        android:layout_marginEnd="-27dp"
-        android:layout_marginBottom="-29dp"
-        >
+        android:layout_marginEnd="-74dp"
+        android:layout_marginBottom="9dp"
+        android:text="31c/42c">
 
 
     </com.google.android.material.textview.MaterialTextView>

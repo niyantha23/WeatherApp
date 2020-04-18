@@ -78,15 +78,15 @@ public class Day2Fragment extends Fragment {
         setcolor();
         String originalTempFormatted = String.format("%.0f", viewModel.getList().get(1).getmOriginalTemp());
         String feelTempFormatted = String.format("%.0f", viewModel.getList().get(1).getmFeelTemp());
-        String maxTempFormatted = String.format("%.0f", viewModel.getList().get(1).getmMaxTemp());
-        String minTempFormatted = String.format("%.0f", viewModel.getList().get(1).getmMinTemp());
+        String maxTempFormatted = String.format("%.2f", viewModel.getList().get(1).getmMaxTemp());
+        String minTempFormatted = String.format("%.2f", viewModel.getList().get(1).getmMinTemp());
         String windSpeedFormatted=String.format("%.1f",viewModel.getList().get(1).getmWindSpeed());
         wind.setText(windSpeedFormatted + "km/h");
         pressure.setText(viewModel.getList().get(1).getmPressure() + "hPa");
         humidity.setText(viewModel.getList().get(1).getmHumidity() + "%");
         fellTemp.setText(feelTempFormatted + "\u2103");
         original_temp.setText(originalTempFormatted + "\u2103");
-        minMaxTemp.setText(minTempFormatted + "\u2103\n\t\t/\n" + maxTempFormatted + "\u2103");
+        minMaxTemp.setText(minTempFormatted + "\u2103\t\t/" + maxTempFormatted + "\u2103");
         description.setText(viewModel.getList().get(1).getmDescrip());
     }
 

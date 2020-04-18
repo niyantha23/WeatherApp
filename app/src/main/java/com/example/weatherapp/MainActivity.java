@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
@@ -14,8 +15,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 
@@ -73,36 +77,57 @@ public class MainActivity extends AppCompatActivity {
     List<Weather> dataToDisplay;
     public LinearLayout rootLayout;
     public String weekday,weekday2,weekday3,weekday4,weekday5;
+    String location;
+    EditText searchbox;
+    ImageButton searchButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        location="Chennai";
         initialize();
+        final MainActivity mainActivity=this;
         DownloadTask task = new DownloadTask();
-        task.execute("https://api.openweathermap.org/data/2.5/forecast?q=Chennai&appid=fc7a4df678d008f3db0aa92ea746fa75");
+        task.execute("https://api.openweathermap.org/data/2.5/forecast?q="+location+"&appid=fc7a4df678d008f3db0aa92ea746fa75");
         StatusBarUtil.setTransparent(MainActivity.this);
 
+        Log.i("locUrl",location);
 
         addFragments();
         viewModel = ViewModelProviders.of(this).get(MyViewModel.class);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                location=searchbox.getText().toString();
+                Log.i("loc",location);
+                searchbox.setText("");
+                DownloadTask task = new DownloadTask();
+                task.execute("https://api.openweathermap.org/data/2.5/forecast?q="+location+"&appid=fc7a4df678d008f3db0aa92ea746fa75");
+
             }
+        });
+            }
+
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        MenuInflater inflater=getMenuInflater();
 //        inflater.inflate(R.menu.menu_search,menu);
 //        MenuItem item=findViewById(R.id.search);
-//        SearchView searchView=findViewById();
+//        SearchView searchView= (SearchView) item.getActionView();
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 //            @Override
 //            public boolean onQueryTextSubmit(String query) {
-//                return false;
+//                Log.i("sss","submitted");
+//                return true;
 //            }
 //
 //            @Override
 //            public boolean onQueryTextChange(String newText) {
-//                return false;
+//
+//
+//              return false;
 //            }
 //        });
 //        return true;
@@ -179,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            Log.i("loc",location);
             findClosest(list);
             getDataToDisplay(list);
             addDataToViewModel();
@@ -228,10 +254,12 @@ public class MainActivity extends AppCompatActivity {
         appBarLayout = findViewById(R.id.app_bar_layout);
         viewPager = findViewById(R.id.view_pager);
         rootLayout=findViewById(R.id.root_layout);
+        searchbox=findViewById(R.id.search_text_box);
+        searchButton=findViewById(R.id.search_button);
         weekday2=getDay(unixTime+86400);
         weekday3=getDay(unixTime+172800);
         weekday4=getDay(unixTime+259200);
-        weekday5=getDay(Day5Date+345600);
+        weekday5=getDay(unixTime+345600);
     }
 
     void findClosest(List<Weather> list) {
@@ -258,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
         Day3Date = (theNumber + 172800);
         Day4Date = (theNumber + 259200);
         Day5Date = (theNumber + 345600);
+
             }
     //to get the day from epoch time
     String getDay(int time){

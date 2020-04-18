@@ -25,7 +25,7 @@
         android:layout_alignEnd="@id/original_temp"
         android:layout_alignBottom="@id/original_temp"
         android:layout_marginEnd="-74dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="7dp"
         android:text="31c/42c">
 
 

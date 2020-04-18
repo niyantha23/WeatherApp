@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     String location;
     EditText searchbox;
     ImageButton searchButton;
+    ProgressBar progressBar;
 
 
     @Override
@@ -88,9 +90,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         location="Chennai";
         initialize();
+        progressBar.setVisibility(View.INVISIBLE);
         final MainActivity mainActivity=this;
+
         DownloadTask task = new DownloadTask();
         task.execute("https://api.openweathermap.org/data/2.5/forecast?q="+location+"&appid=fc7a4df678d008f3db0aa92ea746fa75");
+        progressBar.setVisibility(View.VISIBLE);
         StatusBarUtil.setTransparent(MainActivity.this);
 
         Log.i("locUrl",location);
@@ -105,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 searchbox.setText("");
                 DownloadTask task = new DownloadTask();
                 task.execute("https://api.openweathermap.org/data/2.5/forecast?q="+location+"&appid=fc7a4df678d008f3db0aa92ea746fa75");
+                progressBar.setVisibility(View.VISIBLE);
 
             }
         });
@@ -237,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
                     }   else if(viewPager.getCurrentItem() == 4 && page != null) {
                         ((Day5Fragment)page).assignText();
                     }
+
                 }
 
                 @Override
@@ -244,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -256,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
         rootLayout=findViewById(R.id.root_layout);
         searchbox=findViewById(R.id.search_text_box);
         searchButton=findViewById(R.id.search_button);
+        progressBar=findViewById(R.id.progress_circular);
         weekday2=getDay(unixTime+86400);
         weekday3=getDay(unixTime+172800);
         weekday4=getDay(unixTime+259200);

@@ -79,15 +79,15 @@ public class Day5Fragment extends Fragment {
         setcolor();
         String originalTempFormatted = String.format("%.0f", viewModel.getList().get(4).getmOriginalTemp());
         String feelTempFormatted = String.format("%.0f", viewModel.getList().get(4).getmFeelTemp());
-        String maxTempFormatted = String.format("%.2f", viewModel.getList().get(4).getmMaxTemp());
-        String minTempFormatted = String.format("%.2f", viewModel.getList().get(4).getmMinTemp());
+        String maxTempFormatted = String.format("%.1f", viewModel.getList().get(4).getmMaxTemp());
+        String minTempFormatted = String.format("%.1f", viewModel.getList().get(4).getmMinTemp());
         String windSpeedFormatted=String.format("%.1f",viewModel.getList().get(4).getmWindSpeed());
         wind.setText(windSpeedFormatted + "km/h");
         pressure.setText(viewModel.getList().get(4).getmPressure() + "hPa");
         humidity.setText(viewModel.getList().get(4).getmHumidity() + "%");
         fellTemp.setText(feelTempFormatted + "\u2103");
         original_temp.setText(originalTempFormatted + "\u2103");
-        minMaxTemp.setText(minTempFormatted + "\u2103\t\t/" + maxTempFormatted + "\u2103");
+        minMaxTemp.setText(minTempFormatted + "\u2103\t\t/\t" + maxTempFormatted + "\u2103");
         description.setText(viewModel.getList().get(4).getmDescrip());
     }
     @Override

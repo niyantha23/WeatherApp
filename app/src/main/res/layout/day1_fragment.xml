@@ -6,43 +6,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/original_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_margin="45dp"
-        android:gravity="fill"
-        android:textStyle="bold"
-        android:textSize="65sp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="80dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
         >
 
-    </com.google.android.material.textview.MaterialTextView>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/min_max_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/original_temp"
-        android:layout_alignBottom="@id/original_temp"
-        android:layout_marginEnd="-74dp"
-        android:layout_marginBottom="7dp"
-        android:text="31c/42c">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/original_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginLeft="40dp"
+            android:fontFamily="cursive"
+            android:gravity="fill"
+            android:text="40℃"
+            android:textSize="65sp"
+            android:textStyle="bold">
+
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/min_max_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="cursive"
+            android:text="31c/42c">
 
 
-    </com.google.android.material.textview.MaterialTextView>
-
+        </com.google.android.material.textview.MaterialTextView>
+    </LinearLayout>
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="142dp"
         android:text="Climate conditions"
-        android:textSize="25sp"
-        android:textStyle="italic"></com.google.android.material.textview.MaterialTextView>
-
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:fontFamily="cursive"
+        ></com.google.android.material.textview.MaterialTextView>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/gra"
         android:layout_width="match_parent"
@@ -75,7 +89,9 @@
                 android:layout_marginLeft="25dp"
                 android:text="Details"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></TextView>
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:textSize="20sp"></TextView>
 
                 <LinearLayout
                 android:layout_width="match_parent"
@@ -95,6 +111,9 @@
                         android:gravity="left"
                         android:padding="25dp"
                         android:text="Pressure"
+                        android:fontFamily="cursive"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
 
                         ></com.google.android.material.textview.MaterialTextView>
                     <com.google.android.material.textview.MaterialTextView
@@ -107,6 +126,10 @@
                         android:padding="25dp"
                         android:drawableRight="@drawable/temperature"
                         android:background="@drawable/clear_cloudy_background"
+                        android:fontFamily="cursive"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+
                         ></com.google.android.material.textview.MaterialTextView>
 
                 </LinearLayout>
@@ -128,6 +151,10 @@
                         android:drawableRight="@drawable/humidity"
                         android:gravity="left"
                         android:background="@drawable/clear_cloudy_background"
+                        android:fontFamily="cursive"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+
 
                         ></com.google.android.material.textview.MaterialTextView>
                     <com.google.android.material.textview.MaterialTextView
@@ -139,6 +166,9 @@
                         android:padding="25dp"
                         android:drawableRight="@drawable/wind"
                         android:background="@drawable/clear_cloudy_background"
+                        android:fontFamily="cursive"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
 
                         android:gravity="left"></com.google.android.material.textview.MaterialTextView>
                 </LinearLayout>

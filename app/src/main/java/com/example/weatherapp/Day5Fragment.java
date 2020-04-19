@@ -87,8 +87,10 @@ public class Day5Fragment extends Fragment {
         humidity.setText(viewModel.getList().get(4).getmHumidity() + "%");
         fellTemp.setText(feelTempFormatted + "\u2103");
         original_temp.setText(originalTempFormatted + "\u2103");
-        minMaxTemp.setText(minTempFormatted + "\u2103\t\t/\t" + maxTempFormatted + "\u2103");
-        description.setText(viewModel.getList().get(4).getmDescrip());
+        minMaxTemp.setText(minTempFormatted + "\u2103/" + maxTempFormatted + "\u2103");
+        String des=viewModel.getList().get(4).getmDescrip();
+        String desFormatted=des.substring(0,1).toUpperCase()+des.substring(1).toLowerCase();
+        description.setText(desFormatted);
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -11,6 +11,7 @@ import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     EditText searchbox;
     ImageButton searchButton;
     ProgressBar progressBar;
+    TextView locationView;
 
 
     @Override
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         location="Chennai";
         initialize();
         progressBar.setVisibility(View.INVISIBLE);
+
         final MainActivity mainActivity=this;
 
         DownloadTask task = new DownloadTask();
@@ -107,38 +111,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 location=searchbox.getText().toString();
                 Log.i("loc",location);
-                searchbox.setText("");
+                if(TextUtils.isEmpty(searchbox.getText())){
+                    searchbox.setError("Please Enter Your City");
+                }
+                else{
+                    searchbox.setText("");
                 DownloadTask task = new DownloadTask();
                 task.execute("https://api.openweathermap.org/data/2.5/forecast?q="+location+"&appid=fc7a4df678d008f3db0aa92ea746fa75");
-                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);}
 
             }
         });
             }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater=getMenuInflater();
-//        inflater.inflate(R.menu.menu_search,menu);
-//        MenuItem item=findViewById(R.id.search);
-//        SearchView searchView= (SearchView) item.getActionView();
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Log.i("sss","submitted");
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//
-//
-//              return false;
-//            }
-//        });
-//        return true;
-//
-//    }
 
 
             public class DownloadTask extends AsyncTask<String, Void, String> {
@@ -251,6 +235,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+            String location1 = location.substring(0, 1).toUpperCase() + location.substring(1).toLowerCase();
+            locationView.setText(location1);
             progressBar.setVisibility(View.INVISIBLE);
         }
     }
@@ -265,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
         searchbox=findViewById(R.id.search_text_box);
         searchButton=findViewById(R.id.search_button);
         progressBar=findViewById(R.id.progress_circular);
+        locationView=findViewById(R.id.location);
         weekday2=getDay(unixTime+86400);
         weekday3=getDay(unixTime+172800);
         weekday4=getDay(unixTime+259200);

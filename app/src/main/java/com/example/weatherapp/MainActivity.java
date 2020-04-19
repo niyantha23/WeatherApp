@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     char current = (char) data;
                     result += current;
                     data = reader.read();
+
 
                 }
                 return result;

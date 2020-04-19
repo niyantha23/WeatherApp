@@ -23,32 +23,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location"
                 android:layout_gravity="center"
-                ></TextView>
+                android:fontFamily="serif-monospace"
+                android:text="Location"
+                android:textSize="15sp"
+                android:textStyle="bold"></TextView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="right"
+        android:layout_marginTop="10dp"
         >
 <EditText
     android:id="@+id/search_text_box"
    android:layout_gravity="center"
     android:layout_width="300dp"
-    android:layout_height="50dp"
+    android:layout_height="40dp"
     android:maxHeight="50dp"
+    android:background="@drawable/edit_text_background"
+    android:hint="Enter Your City"
+    android:gravity="center"
+    android:padding="5dp"
     ></EditText>
         <ImageButton
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:hapticFeedbackEnabled="true"
-            android:src="@drawable/ic_search_black_24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+android:background="@drawable/ic_search_black_24dp"
             android:clickable="true">
 
         </ImageButton>
@@ -66,20 +77,35 @@
         android:id="@+id/tablayout"
         app:tabTextColor="@color/colorPrimaryDark"
         android:background="@android:color/transparent"
+        app:tabIndicatorColor="@color/colorAccent"
+        android:layout_marginLeft="5dp"
         >
 
+
     </com.google.android.material.tabs.TabLayout>
-    <ProgressBar
-        android:id="@+id/progress_circular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
         android:layout_gravity="center">
 
-    </ProgressBar>
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:forceHasOverlappingRendering="true">
+
+        </ProgressBar>
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/view_pager"></androidx.viewpager.widget.ViewPager>
-
+</RelativeLayout>
 </LinearLayout>

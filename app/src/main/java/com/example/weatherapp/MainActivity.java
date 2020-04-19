@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -111,10 +112,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 location=searchbox.getText().toString();
                 Log.i("loc",location);
+
                 if(TextUtils.isEmpty(searchbox.getText())){
+
                     searchbox.setError("Please Enter Your City");
+
                 }
                 else{
+                    try  {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    } catch (Exception e) {
+
+                    }
                     searchbox.setText("");
                 DownloadTask task = new DownloadTask();
                 task.execute("https://api.openweathermap.org/data/2.5/forecast?q="+location+"&appid=fc7a4df678d008f3db0aa92ea746fa75");
@@ -201,7 +211,17 @@ public class MainActivity extends AppCompatActivity {
             Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.view_pager + ":" + viewPager.getCurrentItem());
             if (viewPager.getCurrentItem() == 0 && page != null) {
                 ((Day1Fragment)page).assignText();
+            }else if(viewPager.getCurrentItem() == 1 && page != null) {
+                ((Day2Fragment)page).assignText();
             }
+            else if(viewPager.getCurrentItem() == 2 && page != null) {
+                ((Day3Fragment)page).assignText();
+            }   else if(viewPager.getCurrentItem() == 3 && page != null) {
+                ((Day4Fragment)page).assignText();
+            }   else if(viewPager.getCurrentItem() == 4 && page != null) {
+                ((Day5Fragment)page).assignText();
+            }
+
 
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override

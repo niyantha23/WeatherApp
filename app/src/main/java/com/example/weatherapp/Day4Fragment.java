@@ -35,17 +35,17 @@ public class Day4Fragment extends Fragment {
             mainActivity.rootLayout.setBackgroundResource(R.drawable.clouds);
         }
         else if(des.equals("light rain")||des.equals("heavy rain")||des.equals("moderate rain")){
-            mainActivity.rootLayout.setBackgroundResource(R.drawable.rain2);
-            wind.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-            pressure.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-            humidity.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-            fellTemp.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-            details.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-            wind.setBackgroundResource(R.drawable.background);
-            pressure.setBackgroundResource(R.drawable.background);
-            humidity.setBackgroundResource(R.drawable.background);
-            fellTemp.setBackgroundResource(R.drawable.background);
-            card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
+            mainActivity.rootLayout.setBackgroundResource(R.drawable.rain4);
+//            wind.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
+//            pressure.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
+//            humidity.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
+//            fellTemp.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
+//            details.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
+//            wind.setBackgroundResource(R.drawable.background);
+//            pressure.setBackgroundResource(R.drawable.background);
+//            humidity.setBackgroundResource(R.drawable.background);
+//            fellTemp.setBackgroundResource(R.drawable.background);
+//            card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
         }
         else  if(des.equals("sunny sky")){
             mainActivity.rootLayout.setBackgroundResource(R.drawable.sunny3);

@@ -1,15 +1,9 @@
 package com.example.weatherapp;
-
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -18,23 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
-
 public class Day1Fragment extends Fragment {
-    View view;
-    TextView wind, pressure, humidity, fellTemp, original_temp, minMaxTemp, description,details;
-    CardView card;
-
+    private View view;
+    private TextView wind, pressure, humidity, fellTemp, original_temp, minMaxTemp, description,details;
+    private CardView card;
     private MyViewModel viewModel;
-
     public Day1Fragment() {
     }
     public void setcolor(){
-        RelativeLayout base=view.findViewById(R.id.baselayout);
         MainActivity mainActivity= (MainActivity) getActivity();
-
-
         String des=viewModel.getList().get(0).getmDescrip();
-                   Log.i("des",des);
                if(des.equals("clear sky")){
                    mainActivity.rootLayout.setBackgroundResource(R.drawable.clearsky);
                }
@@ -43,16 +30,6 @@ public class Day1Fragment extends Fragment {
                }
                else if(des.equals("light rain")||des.equals("heavy rain")||des.equals("moderate rain")){
                    mainActivity.rootLayout.setBackgroundResource(R.drawable.rain4);
-//                   wind.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//                   pressure.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//                   humidity.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//                   fellTemp.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//                   details.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//                   wind.setBackgroundResource(R.drawable.background);
-//                   pressure.setBackgroundResource(R.drawable.background);
-//                   humidity.setBackgroundResource(R.drawable.background);
-//                   fellTemp.setBackgroundResource(R.drawable.background);
-//                   card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
                                                 }
                else  if(des.equals("sunny sky")){
                    mainActivity.rootLayout.setBackgroundResource(R.drawable.sunny3);
@@ -66,12 +43,10 @@ public class Day1Fragment extends Fragment {
                    humidity.setBackgroundResource(R.drawable.background);
                    fellTemp.setBackgroundResource(R.drawable.background);
                    card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
-
                }
            }
 
     public void assignText() {
-
         wind = view.findViewById(R.id.wind_speed);
         pressure = view.findViewById(R.id.pressure);
         humidity = view.findViewById(R.id.humidity);

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -37,17 +36,7 @@ public class Day2Fragment extends Fragment {
         }
         else if(des.equals("light rain")||des.equals("heavy rain")||des.equals("moderate rain")){
             mainActivity.rootLayout.setBackgroundResource(R.drawable.rain4);
-//            wind.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            pressure.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            humidity.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            fellTemp.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            details.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            wind.setBackgroundResource(R.drawable.background);
-//            pressure.setBackgroundResource(R.drawable.background);
-//            humidity.setBackgroundResource(R.drawable.background);
-//            fellTemp.setBackgroundResource(R.drawable.background);
-//            card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
-        }
+}
         else  if(des.equals("sunny sky")){
             mainActivity.rootLayout.setBackgroundResource(R.drawable.sunny3);
             wind.setTextColor(ContextCompat.getColor(getContext(),R.color.sunnyskytextcolor));
@@ -60,12 +49,10 @@ public class Day2Fragment extends Fragment {
             humidity.setBackgroundResource(R.drawable.background);
             fellTemp.setBackgroundResource(R.drawable.background);
             card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
-
         }
     }
 
     public void assignText() {
-
         wind = view.findViewById(R.id.wind_speed);
         pressure = view.findViewById(R.id.pressure);
         humidity = view.findViewById(R.id.humidity);
@@ -90,7 +77,6 @@ public class Day2Fragment extends Fragment {
         String des=viewModel.getList().get(1).getmDescrip();
         String desFormatted=des.substring(0,1).toUpperCase()+des.substring(1).toLowerCase();
         description.setText(desFormatted);
-
     }
 
     @Nullable

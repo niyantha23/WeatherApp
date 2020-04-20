@@ -1,5 +1,4 @@
 package com.example.weatherapp;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -36,16 +34,6 @@ public class Day4Fragment extends Fragment {
         }
         else if(des.equals("light rain")||des.equals("heavy rain")||des.equals("moderate rain")){
             mainActivity.rootLayout.setBackgroundResource(R.drawable.rain4);
-//            wind.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            pressure.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            humidity.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            fellTemp.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            details.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            wind.setBackgroundResource(R.drawable.background);
-//            pressure.setBackgroundResource(R.drawable.background);
-//            humidity.setBackgroundResource(R.drawable.background);
-//            fellTemp.setBackgroundResource(R.drawable.background);
-//            card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
         }
         else  if(des.equals("sunny sky")){
             mainActivity.rootLayout.setBackgroundResource(R.drawable.sunny3);
@@ -59,12 +47,10 @@ public class Day4Fragment extends Fragment {
             humidity.setBackgroundResource(R.drawable.background);
             fellTemp.setBackgroundResource(R.drawable.background);
             card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
-
         }
     }
 
     public void assignText() {
-
         wind = view.findViewById(R.id.wind_speed);
         pressure = view.findViewById(R.id.pressure);
         humidity = view.findViewById(R.id.humidity);
@@ -88,21 +74,16 @@ public class Day4Fragment extends Fragment {
         minMaxTemp.setText(minTempFormatted + "\u2103/" + maxTempFormatted + "\u2103");
         String des=viewModel.getList().get(3).getmDescrip();
         String desFormatted=des.substring(0,1).toUpperCase()+des.substring(1).toLowerCase();
-        description.setText(desFormatted);
-    }
-
+        description.setText(desFormatted); }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of((FragmentActivity) getActivity()).get(MyViewModel.class);
-
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.day4_fragment,container,false);
         return  view;
-
     }
 }

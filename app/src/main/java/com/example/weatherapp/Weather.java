@@ -1,7 +1,6 @@
 package com.example.weatherapp;
 
 public class Weather {
-
     private int mTimeStamp;
     private float mMinTemp;
     private float mMaxTemp;
@@ -11,7 +10,6 @@ public class Weather {
     private  float mPressure;
     private float mHumidity;
     private  float mWindSpeed;
-
     public Weather(int mTimeStamp, float mMinTemp, float mMaxTemp, String mDescrip, float mOriginalTemp, float mFeelTemp, float mPressure, float mHumidity, float mWindSpeed) {
         this.mTimeStamp = mTimeStamp;
         this.mMinTemp = mMinTemp;

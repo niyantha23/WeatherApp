@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -21,7 +20,6 @@ public class Day5Fragment extends Fragment {
     private MyViewModel viewModel;
     TextView wind, pressure, humidity, fellTemp, original_temp, minMaxTemp, description,details;
     CardView card;
-
 
     public Day5Fragment() {
     }
@@ -38,17 +36,7 @@ public class Day5Fragment extends Fragment {
         }
         else if(des.equals("light rain")||des.equals("heavy rain")||des.equals("moderate rain")){
             mainActivity.rootLayout.setBackgroundResource(R.drawable.rain4);
-//            wind.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            pressure.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            humidity.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            fellTemp.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            details.setTextColor(ContextCompat.getColor(getContext(),R.color.Rainyskytextcolor));
-//            wind.setBackgroundResource(R.drawable.background);
-//            pressure.setBackgroundResource(R.drawable.background);
-//            humidity.setBackgroundResource(R.drawable.background);
-//            fellTemp.setBackgroundResource(R.drawable.background);
-//            card.setCardBackgroundColor(ContextCompat.getColor(getContext(),R.color.SunnyskCardBackground));
-        }
+      }
         else  if(des.equals("sunny sky")){
             mainActivity.rootLayout.setBackgroundResource(R.drawable.sunny3);
             wind.setTextColor(ContextCompat.getColor(getContext(),R.color.sunnyskytextcolor));
@@ -96,7 +84,6 @@ public class Day5Fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of((FragmentActivity) getActivity()).get(MyViewModel.class);
-
     }
 
     @Nullable

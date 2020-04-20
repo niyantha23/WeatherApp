@@ -70,7 +70,7 @@ public class Day3Fragment extends Fragment {
         wind.setText(windSpeedFormatted + "km/h");
         pressure.setText(viewModel.getList().get(2).getmPressure() + "hPa");
         humidity.setText(viewModel.getList().get(2).getmHumidity() + "%");
-        fellTemp.setText(feelTempFormatted + "\u2103");
+        fellTemp.setText(feelTempFormatted + "\u2103\n"+"(Feels Like)");
         original_temp.setText(originalTempFormatted + "\u2103");
         minMaxTemp.setText(minTempFormatted + "\u2103/" + maxTempFormatted + "\u2103");
         String des=viewModel.getList().get(2).getmDescrip();

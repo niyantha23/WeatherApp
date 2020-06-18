@@ -11,3 +11,12 @@ This app provides details like:
 
 
 Api provided by **OpenWeathermap** *(https://openweathermap.org/api)*
+
+
+The Following show the preview of the app:
+
+<a href="url"><img src="https://github.com/niyantha23/WeatherApp/blob/master/screenshots/screenshot1.jpg" align="left" height="480" width="250" ></a>
+
+
+
+<a href="url"><img src="https://github.com/niyantha23/WeatherApp/blob/master/screenshots/screenshot2.jpg" align="left"  height="480" width="250" ></a>
